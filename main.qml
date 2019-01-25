@@ -1,3 +1,6 @@
+
+
+
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
@@ -12,13 +15,13 @@ ApplicationWindow {
 
     minimumHeight: height
     minimumWidth: width
-        title: qsTr("Minecraft Clicker")
+    title: qsTr("Minecraft Clicker")
 
 
-        FontLoader {
-            id: roboto
-            source: "./assets/fonts/Roboto-Light.ttf"
-        }
+    FontLoader {
+        id: roboto
+        source: "./assets/fonts/Roboto-Light.ttf"
+    }
 
     SwipeView {
         id: swipeView
@@ -32,96 +35,65 @@ ApplicationWindow {
                 width: 640
                 height: 380
                 color: "#EEEEEE"
-
-             TextField {
-                id: textInput
-                x: 432
-                y: -40
-                width: 200
-                height: 33
-                text: "Minecraft 1.8.8 (Blazingpack.pl)"
-                font.pixelSize: 12
-                onTextEdited:{
-                    Click.target(textInput.text);
+                Text {
+                    id: element1
+                    x: 0
+                    y: 0
+                    width: 208
+                    height: 24
+                    text: qsTr("R + LMB")
+                    font.pixelSize: 14
+                    horizontalAlignment: Text.AlignHCenter
+                    topPadding: 0
+                    rightPadding: 0
+                    font.family: roboto.name
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    lineHeight: 1
                 }
-             }
+                SpinBox {
+                    id: spinBox
+                    x: 42
+                    y: 235
+                    width: 124
+                    height: 40
+                    editable: true
+                    to: 100
+                    from: 1
+                    value: 10
+                    onValueModified:{
+                        Click.settingCps(spinBox.value);
+                        Click.reset();
+                    }
 
-             Text {
-                 id: element
-                 x: 432
-                 y: 0
-                 width: 208
-                 height: 24
-                 text: qsTr("Window Name")
-                 rightPadding: 0
-                 topPadding: 0
-                 font.family: roboto.name
-                 font.bold: true
-                 lineHeight: 1
-                 verticalAlignment: Text.AlignVCenter
-                 horizontalAlignment: Text.AlignHCenter
-                 font.pixelSize: 14
-             }
+                    Text {
+                        id: element3
+                        x: 0
+                        y: -17
+                        width: 124
+                        height: 17
+                        text: qsTr("CPS amount")
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 14
+                        rightPadding: 0
+                        font.family: roboto.name
+                        horizontalAlignment: Text.AlignHCenter
+                        lineHeight: 1
+                        topPadding: 0
+                        font.bold: true
+                    }
+                    /*CheckBox{
+                        x: 479
+                        y: 0
+                        text: qsTr("Cursor")
+                        onClicked: {
+                            Click.bridge(checked)
+                        }
+                    } */
 
-             Text {
-                 id: element1
-                 x: 0
-                 y: 0
-                 width: 208
-                 height: 24
-                 text: qsTr("R + LMB")
-                 font.pixelSize: 14
-                 horizontalAlignment: Text.AlignHCenter
-                 topPadding: 0
-                 rightPadding: 0
-                 font.family: roboto.name
-                 font.bold: true
-                 verticalAlignment: Text.AlignVCenter
-                 lineHeight: 1
-             }
-             SpinBox {
-                 id: spinBox
-                 x: 42
-                 y: 235
-                 width: 124
-                 height: 40
-                 editable: true
-                 to: 100
-                 from: 1
-                 value: 10
-                 onValueModified:{
-                     Click.settingCps(spinBox.value);
-                     Click.reset();
-                 }
-
-              Text {
-                  id: element3
-                  x: 0
-                  y: -17
-                  width: 124
-                  height: 17
-                  text: qsTr("CPS amount")
-                  verticalAlignment: Text.AlignVCenter
-                  font.pixelSize: 14
-                  rightPadding: 0
-                  font.family: roboto.name
-                  horizontalAlignment: Text.AlignHCenter
-                  lineHeight: 1
-                  topPadding: 0
-                  font.bold: true
-              }
-             /* CheckBox{
-                  x: 479
-                  y: 0
-                  text: qsTr("Cursor")
-                  onClicked: {
-                     Click.cursor(checked)
-                  }
-              } */
-
+                }
             }
 
-        }
         }
 
         Page2Form
@@ -131,38 +103,38 @@ ApplicationWindow {
                 width: 640
                 height: 380
                 color: "#EEEEEE"
-             SpinBox {
-                           id: rspinBox
-                           x: 42
-                           y: 235
-                           width: 124
-                           height: 40
-                           editable: true
-                           to: 100
-                           from: 1
-                           value: 100
-                           onValueModified:{
-                               Click.rsettingCps(rspinBox.value);
-                               Click.rreset();
-                           }
-                           Text {
-                               id: element4
-                               x: 0
-                               y: -17
-                               width: 124
-                               height: 17
-                               text: qsTr("CPS amount")
-                               verticalAlignment: Text.AlignVCenter
-                               font.pixelSize: 14
-                               rightPadding: 0
-                               font.family: roboto.name
-                               horizontalAlignment: Text.AlignHCenter
-                               lineHeight: 1
-                               topPadding: 0
-                               font.bold: true
-                           }
+                SpinBox {
+                    id: rspinBox
+                    x: 42
+                    y: 235
+                    width: 124
+                    height: 40
+                    editable: true
+                    to: 100
+                    from: 1
+                    value: 100
+                    onValueModified:{
+                        Click.rsettingCps(rspinBox.value);
+                        Click.rreset();
+                    }
+                    Text {
+                        id: element4
+                        x: 0
+                        y: -17
+                        width: 124
+                        height: 17
+                        text: qsTr("CPS amount")
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 14
+                        rightPadding: 0
+                        font.family: roboto.name
+                        horizontalAlignment: Text.AlignHCenter
+                        lineHeight: 1
+                        topPadding: 0
+                        font.bold: true
+                    }
 
-                       }
+                }
                 Text {
                     id: element2
                     x: 0
@@ -179,7 +151,7 @@ ApplicationWindow {
                     verticalAlignment: Text.AlignVCenter
                     lineHeight: 1
                 }
-        }
+            }
         }
     }
 
@@ -198,9 +170,9 @@ ApplicationWindow {
             font.family: roboto.name
             font.pixelSize: Qt.application.font.pixelSize * 1.75
             background: Rectangle {
-                        height: main.height
-                        color: tabBar.currentIndex == 0 ? "#FFC107" : "#607D8B"
-                    }
+                height: main.height
+                color: tabBar.currentIndex == 0 ? "#FFC107" : "#607D8B"
+            }
 
         }
         TabButton {
@@ -210,9 +182,88 @@ ApplicationWindow {
             font.family: roboto.name
             font.pixelSize: Qt.application.font.pixelSize * 1.75
             background: Rectangle {
-                        height: main.height
-                        color: tabBar.currentIndex == 1 ? "#FFC107" : "#607D8B"
-                    }
+                height: main.height
+                color: tabBar.currentIndex == 1 ? "#FFC107" : "#607D8B"
+            }
+        }
+    }
+    Item{width: 1; height: 3;}
+    KeyPicker {
+        x: 512
+        y: 55
+        keyName: "E"
+        onAccepted: {
+            var a = keyTranslator.getCode(keyName);
+            if(a === 404){
+                askForKey()
+            } else {
+                Click.setEqBindKey(keyTranslator.getCode(keyName))
+            }
+        }
+
+        Text {
+            id: element
+            x: -121
+            y: 0
+            width: 120
+            height: 40
+            text: qsTr("Inventory button:")
+            font.family: roboto.name
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 12
+        }
+    }
+    Item{width: 1; height: 3;}
+    KeyPicker {
+        x: 512
+        y: 101
+        keyName: "Z"
+        onAccepted: {
+            var a = keyTranslator.getCode(keyName);
+            if(a === 404){
+                askForKey()
+            } else {
+                Click.setBridgeBindKey(keyTranslator.getCode(keyName))
+            }
+        }
+
+        Text {
+            id: element5
+            x: -119
+            y: 0
+            width: 120
+            height: 40
+            text: qsTr("Bridging button:")
+            font.family: roboto.name
+            font.pixelSize: 12
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+
+            Text {
+                id: element6
+                x: 121
+                y: 0
+                width: 27
+                height: 40
+                text: qsTr("ALT")
+                font.family: roboto.name
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pointSize: 11
+            }
+        }
+    }
+    TextField {
+        id: textInput
+        x: 432
+        y: 7
+        width: 200
+        height: 33
+        text: "Minecraft 1.8.8 (Blazingpack.pl)"
+        font.pixelSize: 12
+        onTextEdited:{
+            Click.target(textInput.text);
         }
     }
 }

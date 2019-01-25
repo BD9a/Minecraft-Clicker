@@ -6,10 +6,10 @@ click::click(QObject *parent) : QObject(parent)
 
 }
 
-void click::cursor(bool value)
+void click::bridge(bool value)
 {
-    cursorActive = value;
-    qDebug() << cursorActive;
+    bridgeActive = value;
+    qDebug() << bridgeActive;
 }
 
 //LMB
@@ -35,29 +35,12 @@ void click::cursor(bool value)
 
     void click::loop()
     {
-        CURSORINFO ci = {sizeof(CURSORINFO)};
-
-        if (GetCursorInfo(&ci))
-        {
-            if (ci.flags == 0)
-                qDebug()<< "cursor is hidden"; // cursor is hidden
-            else if (ci.flags == 1)
-                qDebug()<< "cursor is visible"; // cursor is visible
-            else if (ci.flags == 2)
-                qDebug()<< "cursor is suppressed"; // cursor is suppressed
-            else
-                qDebug()<< "this shouldn't happen!"; // this shouldn't happen!
-        }
-        else
-        {
-            qDebug()<< "error"; // GetCursorInfo function failed
-        }
 
         if(GetAsyncKeyState(0x52) && GetAsyncKeyState(0x01))
         {
             rLMB = true;
         }
-        if(GetAsyncKeyState(0x01) == 0)
+        if(GetAsyncKeyState(0x01) == 0 || GetAsyncKeyState(eqBindKey))
         {
             rLMB = false;
             //qDebug() << delay;
@@ -79,7 +62,6 @@ void click::cursor(bool value)
     {
         PostMessage(FindWindow(NULL, windowName), WM_LBUTTONDOWN, 0, 0);
         PostMessage(FindWindow(NULL, windowName), WM_LBUTTONUP, 0, 0);
-
     }
 
 //RMB
@@ -108,7 +90,7 @@ void click::cursor(bool value)
         {
             rRMB = true;
         }
-        if(GetAsyncKeyState(0x02) == 0)
+        if(GetAsyncKeyState(0x02) == 0 || GetAsyncKeyState(eqBindKey))
         {
             rRMB = false;
             //qDebug() << rdelay;
@@ -124,6 +106,7 @@ void click::cursor(bool value)
     void click::rstart()
     {
         connect(rcheck, SIGNAL(timeout()), this, SLOT(rloop()));
+        connect(rcheck, SIGNAL(timeout()), this, SLOT(bridging()));
         rcheck->setInterval(0);
         rcheck->start(rdelay);
     }
@@ -134,3 +117,84 @@ void click::cursor(bool value)
         PostMessage(FindWindow(NULL, windowName), WM_RBUTTONUP, 0, 0);
     }
 
+    void click::bridging()
+    {
+
+        HWND current = GetForegroundWindow();
+        HWND filled = FindWindow(NULL, windowName);
+
+        INPUT ip;
+        ip.type = INPUT_KEYBOARD;
+        ip.ki.wScan = 0; // hardware scan code for key
+        ip.ki.time = 0;
+        ip.ki.dwExtraInfo = 0;
+
+        if(GetAsyncKeyState(bridgeBindKey) && GetAsyncKeyState(0x12) && current == filled) // and marked
+        {
+                pauseBridge();
+            //lshift down
+            ip.ki.wVk = 0xA0;
+            ip.ki.dwFlags = 0;
+            SendInput(1, &ip, sizeof(INPUT));
+                pauseBridge();
+            Sleep(50);
+
+
+            //s down
+            ip.ki.wVk = 0x53;
+            ip.ki.dwFlags = 0;
+            SendInput(1, &ip, sizeof(INPUT));
+
+                pauseBridge();
+            //sleep
+            Sleep(140);
+
+            PostMessage(FindWindow(NULL, windowName), WM_RBUTTONDOWN, 0, 0);
+            PostMessage(FindWindow(NULL, windowName), WM_RBUTTONUP, 0, 0);
+
+
+            Sleep(30);
+
+                pauseBridge();
+
+            ip.ki.wVk = 0xA0; //lshift
+            ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+            SendInput(1, &ip, sizeof(INPUT));
+
+                pauseBridge();
+
+            Sleep(200);
+        }
+    }
+
+    void click::pauseBridge()
+    {
+        if(GetAsyncKeyState(bridgeBindKey) == 0) // or unmarked
+        {
+            INPUT ip;
+            ip.type = INPUT_KEYBOARD;
+            ip.ki.wScan = 0; // hardware scan code for key
+            ip.ki.time = 0;
+            ip.ki.dwExtraInfo = 0;
+
+            ip.ki.wVk = 0xA0; //lshift
+            ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+            SendInput(1, &ip, sizeof(INPUT));
+
+            ip.ki.wVk = 0x53; //s
+            SendInput(1, &ip, sizeof(INPUT));
+        }
+    }
+
+    void click::setEqBindKey(int value)
+    {
+        eqBindKey = value;
+    }
+
+    void click::setBridgeBindKey(int value)
+    {
+        bridgeBindKey = value;
+    }
+
+//TODO Better  QML
+//TODO Clicks Randomizer

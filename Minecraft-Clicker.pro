@@ -16,7 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    click.cpp
+    click.cpp \
+    keytranslator.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,6 +33,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    click.h
+    click.h \
+    keytranslator.h
 
 DISTFILES +=

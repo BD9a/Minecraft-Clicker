@@ -38,7 +38,7 @@ public slots:
             qDebug() << "value" << value;
             qDebug() << "window" << window;
         }
-        void cursor(bool value);
+        void bridge(bool value);
 
         void settingCps(int value);
         void setCps();
@@ -53,12 +53,19 @@ public slots:
         void rloop();
         void rstart();
         void RightClick();
+        void bridging();
+        void pauseBridge();
+
+
+        void setEqBindKey(int value);
+        void setBridgeBindKey(int value);
 private:
 
-        bool cursorActive = false;
+        int eqBindKey=0x45; //  E - Inventory key
+        int bridgeBindKey=0x5A; // Z - Bridge Key
+        bool bridgeActive = false;
         QString window = "Minecraft 1.8.8 (Blazingpack.pl)";
         LPCWSTR windowName = (const wchar_t*) window.utf16();
-
 
 };
 

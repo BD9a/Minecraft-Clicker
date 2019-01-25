@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <windows.h>
 #include <click.h>
+#include <keytranslator.h>
 
 int main(int argc, char *argv[])
 {
@@ -31,8 +32,10 @@ int main(int argc, char *argv[])
     _click.rreset();
 
 
+    KeyTranslator ktr;
     QQmlContext *ctx = engine.rootContext();
     ctx->setContextProperty("Click", &_click);
+    ctx->setContextProperty("keyTranslator", &ktr);
 
     return app.exec();
 }
