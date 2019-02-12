@@ -2,8 +2,10 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <windows.h>
-#include <click.h>
-#include <keytranslator.h>
+#include <ctime>
+#include <Building/building.h>
+#include <Clicking/clicking.h>
+#include <Keytranslator/keytranslator.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,21 +22,18 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    click _click;
 
-    _click.setCps();
-    _click.start();
-
-    _click.rsetCps();
-    _click.rstart();
-
-    _click.reset();
-    _click.rreset();
-
-
+    Building building;
+    Clicking clicking;
     KeyTranslator ktr;
+
+    building.loopStart();
+    clicking.loopStart();
+
     QQmlContext *ctx = engine.rootContext();
-    ctx->setContextProperty("Click", &_click);
+    ctx->setContextProperty("Building", &building);
+    ctx->setContextProperty("Clicking", &clicking);
+
     ctx->setContextProperty("keyTranslator", &ktr);
 
     return app.exec();

@@ -1,6 +1,3 @@
-
-
-
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
@@ -52,7 +49,7 @@ ApplicationWindow {
                     lineHeight: 1
                 }
                 SpinBox {
-                    id: spinBox
+                    id: mincps
                     x: 42
                     y: 235
                     width: 124
@@ -62,17 +59,24 @@ ApplicationWindow {
                     from: 1
                     value: 10
                     onValueModified:{
-                        Click.settingCps(spinBox.value);
-                        Click.reset();
+                        if(maxcps.value > mincps.value)
+                        {
+                            Clicking.setMinCpsDelay(mincps.value);
+                            Clicking.loopReset();
+                        }
+                        if(maxcps.value < mincps.value)
+                        {
+                           maxcps.value++;
+                        }
                     }
 
                     Text {
-                        id: element3
+                        id: mincpstxt
                         x: 0
                         y: -17
                         width: 124
                         height: 17
-                        text: qsTr("CPS amount")
+                        text: qsTr("minCps")
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 14
                         rightPadding: 0
@@ -82,14 +86,45 @@ ApplicationWindow {
                         topPadding: 0
                         font.bold: true
                     }
-                    /*CheckBox{
-                        x: 479
-                        y: 0
-                        text: qsTr("Cursor")
-                        onClicked: {
-                            Click.bridge(checked)
+
+                }
+                SpinBox {
+                    id: maxcps
+                    x: mincps.x + mincps.width + 10;
+                    y: 235
+                    width: 124
+                    height: 40
+                    editable: true
+                    to: 100
+                    from: 1
+                    value: 15
+                    onValueModified:{                        
+                        if(maxcps.value > mincps.value)
+                        {
+                            Clicking.setMaxCpsDelay(maxcps.value);
+                            Clicking.reset();
                         }
-                    } */
+                        if(maxcps.value < mincps.value)
+                        {
+                           maxcps.value++;
+                        }
+                    }
+
+                    Text {
+                        id: maxcpstxt
+                        y: -17
+                        width: 124
+                        height: 17
+                        text: qsTr("maxCps")
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 14
+                        rightPadding: 0
+                        font.family: roboto.name
+                        horizontalAlignment: Text.AlignHCenter
+                        lineHeight: 1
+                        topPadding: 0
+                        font.bold: true
+                    }
 
                 }
             }
@@ -114,8 +149,8 @@ ApplicationWindow {
                     from: 1
                     value: 100
                     onValueModified:{
-                        Click.rsettingCps(rspinBox.value);
-                        Click.rreset();
+                        Building.setDelay(rspinBox.value);
+                        Building.loopReset();
                     }
                     Text {
                         id: element4
@@ -197,7 +232,8 @@ ApplicationWindow {
             if(a === 404){
                 askForKey()
             } else {
-                Click.setEqBindKey(keyTranslator.getCode(keyName))
+                Building.setEqBindKey(keyTranslator.getCode(keyName))
+                Clicking.setEqBindKey(keyTranslator.getCode(keyName))
             }
         }
 
@@ -214,46 +250,6 @@ ApplicationWindow {
             font.pixelSize: 12
         }
     }
-    Item{width: 1; height: 3;}
-    KeyPicker {
-        x: 512
-        y: 101
-        keyName: "Z"
-        onAccepted: {
-            var a = keyTranslator.getCode(keyName);
-            if(a === 404){
-                askForKey()
-            } else {
-                Click.setBridgeBindKey(keyTranslator.getCode(keyName))
-            }
-        }
-
-        Text {
-            id: element5
-            x: -119
-            y: 0
-            width: 120
-            height: 40
-            text: qsTr("Bridging button:")
-            font.family: roboto.name
-            font.pixelSize: 12
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-
-            Text {
-                id: element6
-                x: 121
-                y: 0
-                width: 27
-                height: 40
-                text: qsTr("ALT")
-                font.family: roboto.name
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pointSize: 11
-            }
-        }
-    }
     TextField {
         id: textInput
         x: 432
@@ -263,7 +259,8 @@ ApplicationWindow {
         text: "Minecraft 1.8.8 (Blazingpack.pl)"
         font.pixelSize: 12
         onTextEdited:{
-            Click.target(textInput.text);
+            Building.setWindowName(textInput.text);
+            Clicking.setWindowName(textInput.text);
         }
     }
 }
