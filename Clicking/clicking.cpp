@@ -28,6 +28,8 @@ void Clicking::loopReset()
 
 void Clicking::loop()
 {
+    qDebug() << "maxCpsDelay " << maxCpsDelay;
+    qDebug() << "minCpsDelay " << minCpsDelay;
 
     if(GetAsyncKeyState(0x52) && GetAsyncKeyState(0x01))
     {
