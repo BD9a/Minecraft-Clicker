@@ -55,15 +55,12 @@ ApplicationWindow {
                     width: 124
                     height: 40
                     editable: true
-                    to: 100
+                    to: 20
                     from: 1
                     value: 10
                     onValueModified:{
-                        if(maxcps.value > mincps.value)
-                        {
                             Clicking.setMinCpsDelay(mincps.value);
                             Clicking.loopReset();
-                        }
                         if(maxcps.value < mincps.value)
                         {
                            maxcps.value++;
@@ -95,15 +92,12 @@ ApplicationWindow {
                     width: 124
                     height: 40
                     editable: true
-                    to: 100
+                    to: 20
                     from: 1
                     value: 15
                     onValueModified:{                        
-                        if(maxcps.value > mincps.value)
-                        {
                             Clicking.setMaxCpsDelay(maxcps.value);
-                            Clicking.reset();
-                        }
+                            Clicking.loopReset();
                         if(maxcps.value < mincps.value)
                         {
                            maxcps.value++;

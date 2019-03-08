@@ -45,8 +45,8 @@ void Building::loopStart()
 
 void Building::rightClick()
 {
-    PostMessage(FindWindow(NULL, windowID), WM_RBUTTONDOWN, 0, 0);
-    PostMessage(FindWindow(NULL, windowID), WM_RBUTTONUP, 0, 0);
+    PostMessage(FindWindow(NULL, windowID), WM_RBUTTONDOWN, NULL, NULL);
+    PostMessage(FindWindow(NULL, windowID), WM_RBUTTONUP, NULL, NULL);
 }
 
 void Building::setWindowName(QString value){
