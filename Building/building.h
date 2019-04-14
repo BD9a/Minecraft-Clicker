@@ -23,10 +23,12 @@ public slots:
     void loopStart();
     void rightClick();
     void setWindowName(QString value);
+    void setToggleButton(int value);
 
 private:
     bool enabled = false;
-    int bindKey=0x45; // e
+    int toggleButton=0x52; // r
+    int inventoryKey=0x45; // e
     QString windowName = "Minecraft 1.8.8 (Blazingpack.pl)";
     LPCWSTR windowID = (const wchar_t*) windowName.utf16();
     int delay = 10;

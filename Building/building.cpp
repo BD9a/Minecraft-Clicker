@@ -7,7 +7,7 @@ Building::Building(QObject *parent) : QObject(parent)
 
 void Building::setEqBindKey(int value)
 {
-    bindKey = value;
+    inventoryKey = value;
 }
 
 void Building::setDelay(int value)
@@ -22,11 +22,11 @@ void Building::loopReset()
 
 void Building::loop()
 {
-    if(GetAsyncKeyState(0x52) && GetAsyncKeyState(0x02))
+    if(GetAsyncKeyState(toggleButton) && GetAsyncKeyState(0x02))
     {
         enabled = true;
     }
-    if(GetAsyncKeyState(0x02) == 0 || GetAsyncKeyState(bindKey))
+    if(GetAsyncKeyState(0x02) == 0 || GetAsyncKeyState(inventoryKey))
     {
         enabled = false;
     }
@@ -53,4 +53,9 @@ void Building::setWindowName(QString value){
     connect(this, SIGNAL (textChanged(QString)), this, SLOT(setWindowName(QString)));
     windowName = value;
     windowID = (const wchar_t*) windowName.utf16();
+}
+
+void Building::setToggleButton(int value)
+{
+    toggleButton = value;
 }

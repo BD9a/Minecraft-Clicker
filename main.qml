@@ -32,22 +32,6 @@ ApplicationWindow {
                 width: 640
                 height: 380
                 color: "#EEEEEE"
-                Text {
-                    id: element1
-                    x: 0
-                    y: 0
-                    width: 208
-                    height: 24
-                    text: qsTr("R + LMB")
-                    font.pixelSize: 14
-                    horizontalAlignment: Text.AlignHCenter
-                    topPadding: 0
-                    rightPadding: 0
-                    font.family: roboto.name
-                    font.bold: true
-                    verticalAlignment: Text.AlignVCenter
-                    lineHeight: 1
-                }
                 SpinBox {
                     id: mincps
                     x: 42
@@ -166,22 +150,6 @@ ApplicationWindow {
                     }
 
                 }
-                Text {
-                    id: element2
-                    x: 0
-                    y: 0
-                    width: 208
-                    height: 24
-                    text: qsTr("R + RMB")
-                    font.pixelSize: 14
-                    horizontalAlignment: Text.AlignHCenter
-                    topPadding: 0
-                    rightPadding: 0
-                    font.family: roboto.name
-                    font.bold: true
-                    verticalAlignment: Text.AlignVCenter
-                    lineHeight: 1
-                }
             }
         }
     }
@@ -233,17 +201,67 @@ ApplicationWindow {
             }
         }
 
+            Text {
+                id: element
+                x: -121
+                y: 0
+                width: 120
+                height: 40
+                text: qsTr("Inventory button: ")
+                font.family: roboto.name
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignRight
+                font.pointSize: 11
+            }
+    }
+    KeyPicker {
+        x: 512
+        y: 101
+        keyName: "R"
+        onAccepted: {
+            var a = keyTranslator.getCode(keyName);
+            if(a === 404){
+                askForKey()
+            } else {
+                Clicking.setToggleButton(keyTranslator.getCode(keyName))
+            }
+        }
+
         Text {
-            id: element
             x: -121
             y: 0
             width: 120
             height: 40
-            text: qsTr("Inventory button:")
+            text: qsTr("LMB + ")
             font.family: roboto.name
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 12
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 11
+        }
+    }
+    KeyPicker {
+        x: 512
+        y: 147
+        keyName: "R"
+        onAccepted: {
+            var a = keyTranslator.getCode(keyName);
+            if(a === 404){
+                askForKey()
+            } else {
+                Building.setToggleButton(keyTranslator.getCode(keyName))
+            }
+        }
+
+        Text {
+            x: -121
+            y: 0
+            width: 120
+            height: 40
+            text: qsTr("RMB + ")
+            font.family: roboto.name
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 11
         }
     }
     TextField {

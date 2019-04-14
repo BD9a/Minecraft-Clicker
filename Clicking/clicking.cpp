@@ -8,7 +8,7 @@ Clicking::Clicking(QObject *parent) : QObject(parent)
 
 void Clicking::setEqBindKey(int value)
 {
-    bindKey = value;
+    inventoryKey = value;
 }
 
 void Clicking::setMinCpsDelay(int value)
@@ -28,11 +28,11 @@ void Clicking::loopReset()
 
 void Clicking::loop()
 {
-    if(GetAsyncKeyState(0x52) && GetAsyncKeyState(0x01))
+    if(GetAsyncKeyState(toggleButton) && GetAsyncKeyState(0x01))
     {
         enabled = true;
     }
-    if(GetAsyncKeyState(0x01) == 0 || GetAsyncKeyState(bindKey))
+    if(GetAsyncKeyState(0x01) == 0 || GetAsyncKeyState(inventoryKey))
     {
         enabled = false;
         //qDebug() << delay;
@@ -63,4 +63,9 @@ void Clicking::setWindowName(QString value){
     connect(this, SIGNAL (textChanged(QString)), this, SLOT(setWindowName(QString)));
     windowName = value;
     windowID = (const wchar_t*) windowName.utf16();
+}
+
+void Clicking::setToggleButton(int value)
+{
+    toggleButton = value;
 }
