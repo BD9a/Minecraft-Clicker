@@ -2,7 +2,6 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 
-
 ApplicationWindow {
     visible: true
     width: 640
@@ -13,6 +12,9 @@ ApplicationWindow {
     minimumHeight: height
     minimumWidth: width
     title: qsTr("Minecraft Clicker")
+    onClosing:{
+        Config.save();
+    }
 
 
     FontLoader {
@@ -41,14 +43,14 @@ ApplicationWindow {
                     editable: true
                     to: 19
                     from: 1
-                    value: 10
+                    value: Config.input4
                     onValueModified:{
                         if(maxcps.value <= mincps.value)
                         {
-                           maxcps.value++;
+                            maxcps.value++;
                         }
-                        Clicking.setMaxCpsDelay(maxcps.value);
-                        Clicking.setMinCpsDelay(mincps.value);
+                        Config.setMaxCpsDelay(maxcps.value);
+                        Config.setMinCpsDelay(mincps.value);
                         Clicking.loopReset();
                     }
 
@@ -79,14 +81,14 @@ ApplicationWindow {
                     editable: true
                     to: 20
                     from: 1
-                    value: 15
+                    value: Config.input5
                     onValueModified:{
                         if(maxcps.value <= mincps.value)
                         {
-                           maxcps.value++;
+                            maxcps.value++;
                         }
-                        Clicking.setMaxCpsDelay(maxcps.value);
-                        Clicking.setMinCpsDelay(mincps.value);
+                        Config.setMaxCpsDelay(maxcps.value);
+                        Config.setMinCpsDelay(mincps.value);
                         Clicking.loopReset();
                     }
 
@@ -127,9 +129,9 @@ ApplicationWindow {
                     editable: true
                     to: 100
                     from: 1
-                    value: 100
+                    value: Config.input6
                     onValueModified:{
-                        Building.setDelay(rspinBox.value);
+                        Config.setDelay(rspinBox.value);
                         Building.loopReset();
                     }
                     Text {
@@ -196,23 +198,22 @@ ApplicationWindow {
             if(a === 404){
                 askForKey()
             } else {
-                Building.setEqBindKey(keyTranslator.getCode(keyName))
-                Clicking.setEqBindKey(keyTranslator.getCode(keyName))
+                Config.setEqBindKey(keyTranslator.getCode(keyName))
             }
         }
 
-            Text {
-                id: element
-                x: -121
-                y: 0
-                width: 120
-                height: 40
-                text: qsTr("Inventory button: ")
-                font.family: roboto.name
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 11
-            }
+        Text {
+            id: element
+            x: -121
+            y: 0
+            width: 120
+            height: 40
+            text: qsTr("Inventory button: ")
+            font.family: roboto.name
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 11
+        }
     }
     KeyPicker {
         x: 512
@@ -223,7 +224,7 @@ ApplicationWindow {
             if(a === 404){
                 askForKey()
             } else {
-                Clicking.setToggleButton(keyTranslator.getCode(keyName))
+                Config.setcToggleButton(keyTranslator.getCode(keyName))
             }
         }
 
@@ -240,6 +241,7 @@ ApplicationWindow {
         }
     }
     KeyPicker {
+        id: testowanie
         x: 512
         y: 147
         keyName: "R"
@@ -248,8 +250,9 @@ ApplicationWindow {
             if(a === 404){
                 askForKey()
             } else {
-                Building.setToggleButton(keyTranslator.getCode(keyName))
+                Config.setbToggleButton(keyTranslator.getCode(keyName))
             }
+
         }
 
         Text {
@@ -270,11 +273,17 @@ ApplicationWindow {
         y: 7
         width: 200
         height: 33
-        text: "Minecraft 1.8.8 (Blazingpack.pl)"
+        text: Config.input7
         font.pixelSize: 12
         onTextEdited:{
-            Building.setWindowName(textInput.text);
-            Clicking.setWindowName(textInput.text);
+            Config.setWindowName(textInput.text);
         }
+    }
+    Image {
+        source: "watermark.png" //Your "watermark", make it blurry for better effect.
+        x: 528
+        y: 215
+        width: 104
+        height: 104
     }
 }

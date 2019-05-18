@@ -18,7 +18,8 @@ SOURCES += \
         main.cpp \
     Building/building.cpp \
     Clicking/clicking.cpp \
-    Keytranslator/keytranslator.cpp
+    Keytranslator/keytranslator.cpp \
+    Conf/conf.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,6 +37,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     Building/building.h \
     Clicking/clicking.h \
-    Keytranslator/keytranslator.h
+    Keytranslator/keytranslator.h \
+    Conf/conf.h
 
 DISTFILES +=

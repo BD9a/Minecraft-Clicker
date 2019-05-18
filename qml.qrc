@@ -7,5 +7,6 @@
         <file>assets/fonts/Roboto-Light.ttf</file>
         <file>icon.ico</file>
         <file>KeyPicker.qml</file>
+        <file>watermark.png</file>
     </qresource>
 </RCC>

@@ -6,21 +6,6 @@ Clicking::Clicking(QObject *parent) : QObject(parent)
 
 }
 
-void Clicking::setEqBindKey(int value)
-{
-    inventoryKey = value;
-}
-
-void Clicking::setMinCpsDelay(int value)
-{
-    minCpsDelay = value;
-}
-
-void Clicking::setMaxCpsDelay(int value)
-{
-    maxCpsDelay = value;
-}
-
 void Clicking::loopReset()
 {
     check->start(2);
@@ -28,11 +13,11 @@ void Clicking::loopReset()
 
 void Clicking::loop()
 {
-    if(GetAsyncKeyState(toggleButton) && GetAsyncKeyState(0x01))
+    if(GetAsyncKeyState(config->ctoggleButton) && GetAsyncKeyState(0x01))
     {
         enabled = true;
     }
-    if(GetAsyncKeyState(0x01) == 0 || GetAsyncKeyState(inventoryKey))
+    if(GetAsyncKeyState(0x01) == 0 || GetAsyncKeyState(config->inventoryKey))
     {
         enabled = false;
         //qDebug() << delay;
@@ -41,7 +26,7 @@ void Clicking::loop()
     {
         srand( time( NULL ) );
         leftClick();
-        int randomDelay = 1000 / ((rand()%(maxCpsDelay-minCpsDelay))+minCpsDelay);
+        int randomDelay = 1000 / ((rand()%(config->maxCpsDelay-config->minCpsDelay))+config->minCpsDelay);
         Sleep(randomDelay);
     }
 }
@@ -55,17 +40,6 @@ void Clicking::loopStart()
 
 void Clicking::leftClick()
 {
-    PostMessage(FindWindow(NULL, windowID), WM_LBUTTONDOWN, 0, 0);
-    PostMessage(FindWindow(NULL, windowID), WM_LBUTTONUP, 0, 0);
-}
-
-void Clicking::setWindowName(QString value){
-    connect(this, SIGNAL (textChanged(QString)), this, SLOT(setWindowName(QString)));
-    windowName = value;
-    windowID = (const wchar_t*) windowName.utf16();
-}
-
-void Clicking::setToggleButton(int value)
-{
-    toggleButton = value;
+    PostMessage(FindWindow(NULL, config->windowID), WM_LBUTTONDOWN, 0, 0);
+    PostMessage(FindWindow(NULL, config->windowID), WM_LBUTTONUP, 0, 0);
 }

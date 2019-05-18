@@ -14,6 +14,7 @@ public:
     QMap<QString, int> keyCodes;
 public slots:
     int getCode(QString key);
+    QString getKey(int code);
 private:
     void add(QString v0, int v1);
 
