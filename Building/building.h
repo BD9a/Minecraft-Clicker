@@ -2,7 +2,6 @@
 #define BUILDING_H
 
 #include <QObject>
-#include <QDebug>
 #include <windows.h>
 #include <QTimer>
 #include <Conf/conf.h>
@@ -18,7 +17,6 @@ public:
 signals:
 
 public slots:
-    void loopReset();
     void loop();
     void loopStart();
     void rightClick();

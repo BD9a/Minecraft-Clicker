@@ -2,10 +2,8 @@
 #define CLICKING_H
 
 #include <QObject>
-#include <QDebug>
-#include <windows.h>
 #include <QTimer>
-#include <ctime>
+#include <windows.h>
 #include <Conf/conf.h>
 
 class Clicking : public QObject
@@ -18,7 +16,6 @@ public:
 signals:
 
 public slots:
-    void loopReset();
     void loop();
     void loopStart();
     void leftClick();

@@ -1,12 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <windows.h>
-#include <ctime>
 #include <Building/building.h>
 #include <Clicking/clicking.h>
 #include <Keytranslator/keytranslator.h>
-#include "Conf/conf.h"
+#include <Conf/conf.h>
 
 int main(int argc, char *argv[])
 {

@@ -1,12 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Page1Form.ui.qml</file>
-        <file>Page2Form.ui.qml</file>
-        <file>qtquickcontrols2.conf</file>
-        <file>assets/fonts/Roboto-Light.ttf</file>
-        <file>icon.ico</file>
-        <file>KeyPicker.qml</file>
         <file>watermark.png</file>
+        <file>assets/fonts/AdobeClean-Regular.ttf</file>
+        <file>icon.ico</file>
+        <file>LeftBind.qml</file>
+        <file>RightBind.qml</file>
+        <file>InvBind.qml</file>
     </qresource>
 </RCC>

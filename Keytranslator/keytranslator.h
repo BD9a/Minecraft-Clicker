@@ -4,7 +4,6 @@
 #include <QObject>
 #include <ctype.h>
 #include <QMap>
-#include <QDebug>
 
 class KeyTranslator : public QObject
 {
