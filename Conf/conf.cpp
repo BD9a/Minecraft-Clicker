@@ -50,6 +50,7 @@ void Conf::load(){
     maxCpsDelay = settings.value("maxCpsDelay").toInt();
     windowName = settings.value("windowName").toString();
     delay = settings.value("delay").toInt();
+    windowID = (const wchar_t*) windowName.utf16();
 }
 
 void Conf::create(){
