@@ -1,6 +1,8 @@
 QT += quick
 QT += quickcontrols2
 
+DEFINES += UNICODE
+
 RC_ICONS = icon.ico
 CONFIG += c++11
 

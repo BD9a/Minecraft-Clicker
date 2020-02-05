@@ -46,7 +46,7 @@ public:
         return delay;
     }
 
-    QString windowName = "Minecraft 1.8.8 (Blazingpack.pl)";
+    QString windowName = "Choose a window name...";
     LPCWSTR windowID = (const wchar_t*) windowName.utf16();
 
 signals:

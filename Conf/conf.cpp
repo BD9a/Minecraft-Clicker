@@ -14,13 +14,14 @@ QStringList Conf::bumpNames(){
             int length = GetWindowTextLength(hwnd);
             if (length == 0) continue;
 
-            char* title = new char[length+1];
-            GetWindowTextA(hwnd, title, length+1);
+            wchar_t* title = new wchar_t[length+1];
+            GetWindowTextW(hwnd, title, length+1);
 
-            if(strcmp(title, "Program Manager") == 0 || strcmp(title, "Minecraft Clicker") == 0 || strcmp(title, "Microsoft Text Input Application") == 0)
+            QString convertedTitle = QString::fromWCharArray(title, length);
+            if(convertedTitle.contains("Program Manager") || convertedTitle.contains("Minecraft Clicker") || convertedTitle.contains("Microsoft Text Input Application"))
                 continue;
 
-            processes << title;
+            processes << convertedTitle;
 
         }
     }
